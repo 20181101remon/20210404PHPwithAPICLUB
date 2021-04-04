@@ -1,13 +1,14 @@
 <?php
+        header("Content-Type:text/html; charset=utf-8");
         header('Access-Control-Allow-Origin: *');
         header('Content-Type:application/json');
         include_once '../../config/Database.php';
-        include_once '../../models/Post.php';
+        include_once '../../models/user_info.php';
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
         //  Insrantiate blog post Object
-        $post=new Post($db);
+        $post=new User_info($db);
         // Blog post query
         $result =$post->read();
         // Get row Count
@@ -18,11 +19,12 @@
             while($row=$result->fetch(PDO::FETCH_ASSOC)){
                 extract($row);
                 $post_item=array(
-                    'id'=>$id,
-                    'title'=>$title,
-                    'body'=>html_entity_decode($body),
-                    'category_id'=>$category_id,
-                    'category_name'=>$category_name
+                    'user_id'=>$user_id,
+                    'user_password'=>$user_password,
+                    'user_name'=>$user_name,
+                    'user_sex'=>$user_sex,
+                    'user_tel'=>$user_tel,
+                    'user_mail'=>$user_mail
                 );
                 // Push to 'data'
                 array_push($posts_arr['data'],$post_item);
