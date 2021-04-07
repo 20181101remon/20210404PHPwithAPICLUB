@@ -11,10 +11,11 @@ class Database{
         $this->conn=null;
         try{
             $this->conn=new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name , $this->username , $this->password);
+            // if query failed,return PDO error messeage
             $this->conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
             $this->conn->query("SET NAMES utf8");
         }catch(PDOException $e){
-            echo '連接失敗'.$e->getMessage();
+            echo 'Conn Error'.$e->getMessage();
         }
         return $this->conn;
     }

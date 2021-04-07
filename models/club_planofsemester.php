@@ -46,74 +46,63 @@
             $this->conn=$db;
         }
         // Get Posts
-        public function read(){
-        $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.
-        ' WHERE '.$this->table1.'.`club_semester`='.$this->table2.'.`club_semester`  
-        AND '.$this->table2.'.`club_id`='.$this->table3.'.`club_id`
-        AND `club_info`.`club_name`="昭凌戲劇社"';
-            // Prepare statement
-            $stmt=$this->conn->prepare($query);
-            // Execute query
-            $stmt->execute();
-            return $stmt;
-        }
+        // public function read(){
+        // // $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.
+        // // ' WHERE '.$this->table1.'.`club_semester`='.$this->table2.'.`club_semester`  
+        // // AND '.$this->table2.'.`club_id`='.$this->table3.'.`club_id`
+        // // AND `club_info`.`club_name`="昭凌戲劇社"';
+        // $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.
+        // ' WHERE '.$this->table1.'.`club_semester`='.$this->table2.'.`club_semester`  
+        // AND '.$this->table2.'.`club_id`='.$this->table3.'.`club_id`
+        // AND `club_info`.`club_name`="昭凌戲劇社"';
+        //     // Prepare statement
+        //     $stmt=$this->conn->prepare($query);
+        //     // Execute query
+        //     $stmt->execute();
+        //     return $stmt;
+        // }
         // get Single Post 
+
         public function read_single(){
+
             $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3. 
             ' WHERE '.$this->table1.'.`club_semester`='.$this->table2.'.`club_semester` 
             AND '.$this->table2.'.`club_id`='.$this->table3.'.`club_id`
             AND '.$this->table3.'.club_name = ?
-            LIMIT 0,1';
+            ORDER BY '.$this->table1.'.date';
             
             $stmt=$this->conn->prepare($query);
-            // Bind ID
             $stmt->bindParam(1,$this->id);
-            // Execute query
             $stmt->execute();
-            $row= $stmt->fetch(PDO::FETCH_ASSOC);
-            // Set 
-            $this->club_name=$row['club_name'];
-            $this->date=$row['date'];
-            $this->club_teacher=$row['club_teacher'];
-            $this->class_place=$row['class_place'];
-            $this->class_contect=$row['class_contect'];
-            $this->	PLC=$row['PLC'];
+            return $stmt;
         }
 
         // Create Post
         public function create(){
             // Create query
-            $query='INSERT INTO ' . $this->table1 .' 
-            SET 
-                user_id = :user_id,
-                user_password = :user_password,
-                user_name = :user_name,
-                user_sex = :user_sex,
-                user_tel = :user_tel,
-                user_mail = :user_mail,
-                user_pic = :user_pic';
+            $query='INSERT INTO ' . $this->table1 .
+            ' SET flow_of_plan = :flow_of_plan,
+                date = :date,
+                activity_name = :activity_name,
+                club_semester = :club_semester';
 
             // Prepare statement
             $stmt = $this ->conn->prepare($query);
 
             // Clean data
-            $this->user_id = htmlspecialchars(strip_tags($this -> user_id));
-            $this->user_password = htmlspecialchars(strip_tags($this -> user_password));
-            $this->user_name = htmlspecialchars(strip_tags($this -> user_name));
-            $this->user_sex = htmlspecialchars(strip_tags($this -> user_sex));
-            $this->user_tel = htmlspecialchars(strip_tags($this -> user_tel));
-            $this->user_mail = htmlspecialchars(strip_tags($this -> user_mail));
-            $this->user_pic = htmlspecialchars(strip_tags($this -> user_pic));
+            $this->flow_of_plan = htmlspecialchars(strip_tags($this -> flow_of_plan));
+            $this->date = htmlspecialchars(strip_tags($this -> date));
+            $this->activity_name = htmlspecialchars(strip_tags($this -> activity_name));
+            $this->club_semester = htmlspecialchars(strip_tags($this -> club_semester));
+
             
 
             // Bind data
-            $stmt ->bindParam(':user_id', $this->user_id);
-            $stmt ->bindParam(':user_password', $this->user_password);
-            $stmt ->bindParam(':user_name', $this->user_name);
-            $stmt ->bindParam(':user_sex', $this->user_sex);
-            $stmt ->bindParam(':user_tel', $this->user_tel);
-            $stmt ->bindParam(':user_mail', $this->user_mail);
-            $stmt ->bindParam(':user_pic', $this->user_pic);
+            $stmt ->bindParam(':flow_of_plan', $this->flow_of_plan);
+            $stmt ->bindParam(':date', $this->date);
+            $stmt ->bindParam(':activity_name', $this->activity_name);
+            $stmt ->bindParam(':club_semester', $this->club_semester);
+
             // Execute query
             if($stmt->execute()){
                 return true;

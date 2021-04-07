@@ -5,21 +5,20 @@
         header('Accress-Control-Allow-Headers:Accress-Control-Allow-Headers,Content-Type,
         Access-Control-Allow-Methods,Authorization,X-Requseted-With');
         include_once '../../config/Database.php';
-        include_once '../../models/user_info.php';
+        include_once '../../models/club_planofsemester.php';
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
         //  Insrantiate blog post Object
-        $user=new User_info($db);
+        $user=new club_planofsemester($db);
 
         // Get raw usered data
         $data =json_decode(file_get_contents("php://input"));
 
-        $user ->user_id =$data ->user_id;
-        $user ->user_password =$data ->user_password;
-        $user ->user_name =$data ->user_name;
-        $user ->user_sex =$data ->user_sex;
-        $user ->user_tel =$data ->user_tel;
+        $user ->flow_of_plan =$data ->flow_of_plan;
+        $user ->date =$data ->date;
+        $user ->activity_name =$data ->activity_name;
+        $user ->club_semester =$data ->club_semester;
 
         // create user
         if($user->create()){
