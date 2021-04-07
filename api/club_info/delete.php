@@ -4,7 +4,7 @@
         header('Access-Control-Allow-Methods: DELETE');
         header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
         include_once '../../config/Database.php';
-        include_once '../../models/club.php';
+        include_once '../../models/club_info.php';
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
@@ -13,7 +13,7 @@
         // Get raw posted data
         $data =json_decode(file_get_contents("php://input"));
         // Set id to update
-        $post-> club_name =$data ->club_name;
+        $post-> club_id =$data ->club_id;
         // DELETE post
         if($post->delete()){
             echo json_encode(

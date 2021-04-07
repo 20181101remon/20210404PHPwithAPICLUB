@@ -3,7 +3,7 @@
         header('Access-Control-Allow-Origin: *');
         header('Content-Type:application/json');
         include_once '../../config/Database.php';
-        include_once '../../models/club.php';
+        include_once '../../models/club_info.php';
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
