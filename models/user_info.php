@@ -13,7 +13,6 @@ class User_info
     public $user_tel;
     public $user_mail;
     public $user_pic;
-    public $createAt;
     public $updateAt;
 
     // Constructor with DB
@@ -60,13 +59,15 @@ class User_info
     public function create()
     {
         // Create query
-        $query = 'INSERT INTO ' . $this->table .
-            ' SET user_id = :user_id,
+        $query = 'INSERT INTO ' . $this->table .'
+        SET 
+                user_id = :user_id,
                 user_password = :user_password,
                 user_name = :user_name,
                 user_sex = :user_sex,
                 user_tel = :user_tel,
                 user_mail = :user_mail,
+                updateAt =:updateAt,
                 user_pic = :user_pic';
 
 
@@ -81,6 +82,7 @@ class User_info
         $this->user_sex = htmlspecialchars(strip_tags($this->user_sex));
         $this->user_tel = htmlspecialchars(strip_tags($this->user_tel));
         $this->user_mail = htmlspecialchars(strip_tags($this->user_mail));
+        $this->updateAt = htmlspecialchars(strip_tags($this->updateAt));
         $this->user_pic = htmlspecialchars(strip_tags($this->user_pic));
 
 
@@ -91,6 +93,7 @@ class User_info
         $stmt->bindParam(':user_sex', $this->user_sex);
         $stmt->bindParam(':user_tel', $this->user_tel);
         $stmt->bindParam(':user_mail', $this->user_mail);
+        $stmt->bindParam(':updateAt', $this->updateAt);
         $stmt->bindParam(':user_pic', $this->user_pic);
         // Execute query
         if ($stmt->execute()) {
