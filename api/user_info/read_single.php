@@ -6,31 +6,31 @@
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
-        //  Insrantiate blog post Object
+        //  Insrantiate blog user Object
 
-        $post=new User_info($db);
+        $user=new User_info($db);
         
 
         // Get ID
-        $post->id = isset($_GET['id']) ? $_GET['id'] : die();
+        $user->id = isset($_GET['id']) ? $_GET['id'] : die();
 
-        // Get Post 
-        $post->read_single();
+        // Get user 
+        $user->read_single();
 
         // create array
 
-        $post_arr =array(
-        'user_id' => $post->user_id,
-        'user_password' => $post->user_password,
-        'body' => $post -> body,
-        'user_name' => $post ->user_name,
-        'user_sex' => $post -> user_sex,
-        'user_tel' => $post -> user_tel,
-        'user_mail' => $post -> user_mail
+        $user_arr =array(
+        'user_id' => $user->user_id,
+        'user_password' => $user->user_password,
+        'body' => $user -> body,
+        'user_name' => $user ->user_name,
+        'user_sex' => $user -> user_sex,
+        'user_tel' => $user -> user_tel,
+        'user_mail' => $user -> user_mail
 
         );
 
         //Make Json
-        print_r(json_encode($post_arr));
+        print_r(json_encode($user_arr));
 
 ?>

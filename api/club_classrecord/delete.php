@@ -9,21 +9,21 @@
         $database =new Database();
         $db=$database->connect();
         //  Insrantiate blog post Object
-        $post=new club_classrecord($db);
-        // Get raw posted data
+        $classrecord=new club_classrecord($db);
+        // Get raw classrecorded data
         $data =json_decode(file_get_contents("php://input"));
         // Set id to update
-        $post-> flow_of_classrecord =$data ->flow_of_classrecord;
-        // DELETE post
-        if($post->delete()){
+        $classrecord-> flow_of_classrecord =$data ->flow_of_classrecord;
+        // DELETE classrecord
+        if($classrecord->delete()){
             echo json_encode(
-                array('message' => 'delete Post ')
+                array('message' => 'delete classrecord ')
             );
         }
         else
         {
             echo json_encode(
-                array('message' => 'Post not delete')
+                array('message' => 'classrecord not delete')
             );
         }
 

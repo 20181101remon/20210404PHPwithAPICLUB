@@ -1,25 +1,29 @@
 <?php
         header('Access-Control-Allow-Origin: *');
         header('Content-Type: application/json');
-        header('Access-Control-Allow-Methods: POST');
+        header('Access-Control-Allow-Methods:PUT');
         header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
         include_once '../../config/Database.php';
-        include_once '../../models/user_info.php';
+        include_once '../../models/club_classrecord.php';
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
         //  Insrantiate blog post Object
-        $user=new User_info($db);
+        $user=new club_classrecord($db);
 
         // Get raw usered data
         $data =json_decode(file_get_contents("php://input"));
 
         // SET ID 
-        $user ->user_id =$data ->user_id;
-        $user ->user_password =$data ->user_password;
-        $user ->user_name =$data ->user_name;
-        $user ->user_sex =$data ->user_sex;
-        $user ->user_tel =$data ->user_tel;
+        $user ->flow_of_classrecord =$data ->flow_of_classrecord;
+        $user ->date =$data ->date;
+        $user ->class_name =$data ->class_name;
+        $user ->class_teacher =$data ->class_teacher;
+        $user ->class_place =$data ->class_place;
+        $user ->class_contect =$data ->class_contect;
+        $user ->updateAt =$data ->updateAt;
+        $user ->PLC =$data ->PLC;
+        $user ->club_semester =$data ->club_semester;
         // create user
         if($user->update()){
             echo json_encode(
@@ -29,7 +33,7 @@
         else
         {
             echo json_encode(
-                array('message' => 'user not Created')
+                array('message' => 'Post not Created')
             );
         }
 

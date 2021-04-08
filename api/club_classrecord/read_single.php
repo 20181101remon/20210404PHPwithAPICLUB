@@ -12,7 +12,7 @@ $classrecord = new club_classrecord($db);
 
 // Get ID
 $classrecord->id = isset($_GET['id']) ? $_GET['id'] : die();
-
+$classrecord->date = isset($_GET['date']) ? $_GET['date'] : die();
 // Get club$club 
 $classrecord->read_single();
 

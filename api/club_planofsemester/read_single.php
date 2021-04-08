@@ -8,43 +8,43 @@ $database = new Database();
 $db = $database->connect();
 //  Insrantiate blog post Object
 
-$post = new club_planofsemester($db);
+$club_plan = new club_planofsemester($db);
 
 
 // Get ID
-$post->id = isset($_GET['id']) ? $_GET['id'] : die();
+$club_plan->id = isset($_GET['id']) ? $_GET['id'] : die();
 
-// Get Post 
-$result = $post->read_single();
+// Get club_plan 
+$result = $club_plan->read_single();
 
 // Get row Count
 $num = $result->rowCount();
 
 // create array
 if ($num > 0) {
-        $post_arr = array();
+        $club_plan_arr = array();
 
         // pagniation easily
-        // $posts_arr['data']=array();
+        // $club_plans_arr['data']=array();
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 // let key be the variable,take the content from sql
                 extract($row);
-                $post_item = array(
+                $club_plan_item = array(
                         'date' => $date,
                         'activity_name' => $activity_name
                         
                 );
                 // Push to 'data'
-                // array_push($posts_arr['data'],$post_item);
+                // array_push($club_plans_arr['data'],$club_plan_item);
                 // Turn to Json
-                echo json_encode($post_item);
+                echo json_encode($club_plan_item);
         }
 } else {
         echo json_encode(
-                array('memessage' => 'No Post')
+                array('memessage' => 'No club_plan')
         );
 }
 
 //Make Json
-print_r(json_encode($post_arr));
+print_r(json_encode($club_plan_arr));

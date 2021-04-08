@@ -8,22 +8,22 @@
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
-        //  Insrantiate blog post Object
-        $post=new User_info($db);
-        // Get raw posted data
+        //  Insrantiate blog user Object
+        $user=new User_info($db);
+        // Get raw usered data
         $data =json_decode(file_get_contents("php://input"));
         // Set id to update
-        $post-> user_id =$data ->user_id;
-        // DELETE post
-        if($post->delete()){
+        $user-> user_id =$data ->user_id;
+        // DELETE user
+        if($user->delete()){
             echo json_encode(
-                array('message' => 'delete Post ')
+                array('message' => 'delete user ')
             );
         }
         else
         {
             echo json_encode(
-                array('message' => 'Post not delete')
+                array('message' => 'user not delete')
             );
         }
 

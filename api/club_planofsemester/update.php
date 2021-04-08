@@ -9,26 +9,26 @@
         $database =new Database();
         $db=$database->connect();
         //  Insrantiate blog post Object
-        $user=new club_planofsemester($db);
+        $club_plan=new club_planofsemester($db);
 
-        // Get raw usered data
+        // Get raw club_planed data
         $data =json_decode(file_get_contents("php://input"));
 
         // SET ID 
-        $user ->flow_of_plan =$data ->flow_of_plan;
-        $user ->date =$data ->date;
-        $user ->activity_name =$data ->activity_name;
-        $user ->club_semester =$data ->club_semester;
-        // create user
-        if($user->update()){
+        $club_plan ->flow_of_plan =$data ->flow_of_plan;
+        $club_plan ->date =$data ->date;
+        $club_plan ->activity_name =$data ->activity_name;
+        $club_plan ->club_semester =$data ->club_semester;
+        // create club_plan
+        if($club_plan->update()){
             echo json_encode(
-                array('message' => $user)
+                array('message' => $club_plan)
             );
         }
         else
         {
             echo json_encode(
-                array('message' => 'Post not Created')
+                array('message' => 'club_plan not Created')
             );
         }
 

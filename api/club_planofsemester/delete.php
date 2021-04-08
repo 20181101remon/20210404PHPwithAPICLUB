@@ -8,22 +8,22 @@
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
-        //  Insrantiate blog post Object
-        $post=new club_planofsemester($db);
+        //  Insrantiate blog club_plan Object
+        $club_plan=new club_planofsemester($db);
         // Get raw posted data
         $data =json_decode(file_get_contents("php://input"));
         // Set id to update
-        $post-> flow_of_plan =$data ->flow_of_plan;
-        // DELETE post
-        if($post->delete()){
+        $club_plan-> flow_of_plan =$data ->flow_of_plan;
+        // DELETE club_plan
+        if($club_plan->delete()){
             echo json_encode(
-                array('message' => 'delete Post ')
+                array('message' => 'delete club_plan ')
             );
         }
         else
         {
             echo json_encode(
-                array('message' => 'Post not delete')
+                array('message' => 'club_plan not delete')
             );
         }
 

@@ -9,21 +9,21 @@
         $database =new Database();
         $db=$database->connect();
         //  Insrantiate blog post Object
-        $post=new financialtable($db);
-        // Get raw posted data
+        $financialtable=new financialtable($db);
+        // Get raw financialtableed data
         $data =json_decode(file_get_contents("php://input"));
         // Set id to update
-        $post-> flow_of_financercord =$data ->flow_of_financercord;
-        // DELETE post
-        if($post->delete()){
+        $financialtable-> flow_of_financercord =$data ->flow_of_financercord;
+        // DELETE financialtable
+        if($financialtable->delete()){
             echo json_encode(
-                array('message' => 'delete Post ')
+                array('message' => 'delete financialtable ')
             );
         }
         else
         {
             echo json_encode(
-                array('message' => 'Post not delete')
+                array('message' => 'financialtable not delete')
             );
         }
 

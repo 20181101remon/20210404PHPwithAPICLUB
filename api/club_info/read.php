@@ -37,9 +37,9 @@
                     'club_show_pic'=>$club_show_pic
                 );
                 // Push to 'data'
-                array_push($clubs_arr['data'],$club_item);
+                // array_push($clubs_arr['data'],$club_item);
                 // Turn to Json
-                echo json_encode($clubs_arr);
+                echo json_encode($club_item);
             }
         }else{
             echo json_encode(

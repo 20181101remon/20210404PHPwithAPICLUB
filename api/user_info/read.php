@@ -9,22 +9,22 @@
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
-        //  Insrantiate blog post Object
-        $post=new User_info($db);
-        // Blog post query
-        $result =$post->read();
+        //  Insrantiate blog user Object
+        $user=new User_info($db);
+        // Blog user query
+        $result =$user->read();
         // Get row Count
         $num=$result->rowCount();
         if($num>0){
-            $post_arr=array();
+            $user_arr=array();
             
             // pagniation easily
-            // $posts_arr['data']=array();
+            // $users_arr['data']=array();
 
             while($row=$result->fetch(PDO::FETCH_ASSOC)){
                 // let key be the variable,take the content from sql
                 extract($row);
-                $post_item=array(
+                $user_item=array(
                     'user_id'=>$user_id,
                     'user_password'=>$user_password,
                     'user_name'=>$user_name,
@@ -33,13 +33,13 @@
                     'user_mail'=>$user_mail
                 );
                 // Push to 'data'
-                // array_push($posts_arr['data'],$post_item);
+                // array_push($users_arr['data'],$user_item);
                 // Turn to Json
-                echo json_encode($post_item);
+                echo json_encode($user_item);
             }
         }else{
             echo json_encode(
-                array('memessage'=>'No Post')
+                array('memessage'=>'No user')
             );
         }
 ?>
