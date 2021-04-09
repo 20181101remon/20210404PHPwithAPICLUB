@@ -29,3 +29,5 @@ $classrecord_arr = array(
 
 //Make Json
 print_r(json_encode($classrecord_arr));
+
+?>

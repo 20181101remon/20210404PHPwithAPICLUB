@@ -1,23 +1,19 @@
 <?php
-    class club_classrecord{
+    class activity_results{
         // DB stuff
         private $conn;
-        private $table1='club_classrecord';
-        private $table2='club_semester';
-        private $table3='club_info';
-        private $table4='classrecord_pic';
+        private $table1='activity_results';
+        private $table2='activity_apply';
+        private $table3='club_semester';
+        private $table4='club_info';
+        private $table5='activity_pic';
 
-        public $flow_of_classrecord;
-        public $date;
-        public $class_name;
-        public $class_teacher;
-        public $class_place;
-        public $class_contect;
-        public $createAt;
-        public $updateAt;
-        public $PLC;
-        public $club_semester;
-        public $pic;
+        public $flow_result_activity;
+        public $result_activity_population;
+        public $achievement;
+        public $improvement;
+        public $flow_of_activity ;
+
         
         // Constructor with DB
         public function __construct($db)
@@ -26,14 +22,14 @@
         }
         // Get Posts
         public function read(){
-        $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.','.$this->table4. 
-        ' WHERE '.$this->table1.'.`club_semester`='.$this->table2.'.`club_semester` 
-        AND '.$this->table2.'.`club_id`='.$this->table3.'.`club_id`
-        AND '.$this->table4.'.`flow_of_classrecord`='.$this->table1.'.`flow_of_classrecord`
-        AND '.$this->table3.'.club_name = ?
-        GROUP BY '.$this->table1.'.`flow_of_classrecord`
-        ORDER BY '.$this->table1.'.date
-        ';
+            
+        $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.','.$this->table4.','.$this->table5. 
+        ' WHERE '.$this->table2.'.`club_semester`='.$this->table3.'.`club_semester` 
+        AND '.$this->table1.'.`flow_of_activity`='.$this->table2.'.`flow_of_activity`
+        AND '.$this->table3.'.`club_id`='.$this->table4.'.`club_id`
+        AND '.$this->table5.'.`flow_result_activity`='.$this->table1.'.`flow_result_activity`
+        AND '.$this->table4.'.club_name = ?
+        GROUP BY '.$this->table1.'.`flow_result_activity`';
             // Prepare statement
             $stmt=$this->conn->prepare($query);
               // Bind ID
@@ -44,17 +40,18 @@
         }
         // get Single Post 
         public function read_single(){
-            $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.','.$this->table4. 
-            ' WHERE '.$this->table1.'.`club_semester`='.$this->table2.'.`club_semester` 
-            AND '.$this->table2.'.`club_id`='.$this->table3.'.`club_id`
-            AND '.$this->table4.'.`flow_of_classrecord`='.$this->table1.'.`flow_of_classrecord`
-            AND '.$this->table3.'.club_name = :id
-            AND '.$this->table1.'.date = :date';
+            $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.','.$this->table4.','.$this->table5. 
+            ' WHERE '.$this->table2.'.`club_semester`='.$this->table3.'.`club_semester` 
+            AND '.$this->table1.'.`flow_of_activity`='.$this->table2.'.`flow_of_activity`
+            AND '.$this->table3.'.`club_id`='.$this->table4.'.`club_id`
+            AND '.$this->table5.'.`flow_result_activity`='.$this->table1.'.`flow_result_activity`
+            AND '.$this->table4.'.club_name = :id
+            AND '.$this->table2.'.date = :date';
             
             $stmt=$this->conn->prepare($query);
             // Bind ID
-            $stmt->bindParam(':id',$this->id);
-            $stmt->bindParam(':date',$this->date);
+            $stmt->bindParam('id',$this->id);
+            $stmt->bindParam('date',$this->date);
             // Execute query
             $stmt->execute();
 
@@ -62,10 +59,10 @@
             // Set 
             $this->date=$row['date'];
             $this->club_name=$row['club_name'];
-            $this->club_teacher=$row['club_teacher'];
-            $this->class_place=$row['class_place'];
-            $this->	class_contect=$row['class_contect'];
-            $this->	pic=$row['pic'];
+            $this->activity_name=$row['activity_name'];
+            $this->result_activity_population=$row['result_activity_population'];
+            $this->achievement=$row['achievement'];
+            $this->	improvement=$row['improvement'];
 
         }
         // Create Post
