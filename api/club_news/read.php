@@ -29,7 +29,8 @@
                     'club_name'=>$club_name,
                     'date'=>$date,
                     'news_title'=>$news_title,
-                    'news_content'=>$news_content
+                    'news_content'=>$news_content,
+                    'news_pic'=>$news_pic
                     
                 );
                 // Push to 'data'

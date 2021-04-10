@@ -15,6 +15,7 @@
         public $updateAt;
         public $news_id;
         public $club_id;
+        public $news_pic;
 
         
         // Constructor with DB
@@ -24,9 +25,11 @@
         }
         // Get Posts
         public function read(){
-        $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3. 
+        $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.','.$this->table4.  
         ' WHERE '.$this->table1.'.`club_id`='.$this->table2.'.`club_id` 
         AND '.$this->table1.'.`news_id`='.$this->table3.'.`news_id`
+        AND '.$this->table1.'.`flow_of_news`='.$this->table4.'.`flow_of_news`
+        GROUP BY '.$this->table1.'.flow_of_news
         ORDER BY '.$this->table1.'.date';
             // Prepare statement
             $stmt=$this->conn->prepare($query);
