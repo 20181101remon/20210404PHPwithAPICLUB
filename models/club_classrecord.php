@@ -42,6 +42,20 @@
             $stmt->execute();
             return $stmt;
         }
+        public function readPLC(){
+            $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.','.$this->table4. 
+            ' WHERE '.$this->table1.'.`club_semester`='.$this->table2.'.`club_semester` 
+            AND '.$this->table2.'.`club_id`='.$this->table3.'.`club_id`
+            AND '.$this->table4.'.`flow_of_classrecord`='.$this->table1.'.`flow_of_classrecord`
+            AND '.$this->table1.'.PLC = 1
+            GROUP BY '.$this->table1.'.`flow_of_classrecord`
+            ORDER BY '.$this->table1.'.date';
+                // Prepare statement
+                $stmt=$this->conn->prepare($query);
+                // Execute query
+                $stmt->execute();
+                return $stmt;
+        }
         // get Single Post 
         public function read_single(){
             $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.','.$this->table4. 

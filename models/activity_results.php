@@ -40,6 +40,22 @@ class activity_results
         $stmt->execute();
         return $stmt;
     }
+
+    public function readPLC(){
+        $query = 'SELECT * FROM ' . $this->table1 . ',' . $this->table2 . ',' . $this->table3 . ',' . $this->table4 . ',' . $this->table5 .
+        ' WHERE ' . $this->table2 . '.`club_semester`=' . $this->table3 . '.`club_semester` 
+        AND ' . $this->table1 . '.`flow_of_activity`=' . $this->table2 . '.`flow_of_activity`
+        AND ' . $this->table3 . '.`club_id`=' . $this->table4 . '.`club_id`
+        AND ' . $this->table5 . '.`flow_result_activity`=' . $this->table1 . '.`flow_result_activity`
+        AND ' . $this->table1 . '.PLC = 1
+        GROUP BY ' . $this->table1 . '.`flow_result_activity`';
+            // Prepare statement
+            $stmt=$this->conn->prepare($query);
+            // Execute query
+            $stmt->execute();
+            return $stmt;
+    }
+
     // get Single Post 
     public function read_single()
     {

@@ -9,38 +9,32 @@
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
-        //  Insrantiate blog news Object
-        $news=new club_news($db);
-        // Get ID
-        $news->id = isset($_GET['id']) ? $_GET['id'] : die();
-
-
-        // Blog news query
-        $result =$news->read();
+        //  Insrantiate blog user Object
+        $user=new club_news($db);
+        // Blog user query
+        $result =$user->readPLC();
         // Get row Count
         $num=$result->rowCount();
         if($num>0){
-            $news_arr=array();
+            $user_arr=array();
             
             // pagniation easily
-            // $newss_arr['data']=array();
+            // $users_arr['data']=array();
 
             while($row=$result->fetch(PDO::FETCH_ASSOC)){
                 // let key be the variable,take the content from sql
                 extract($row);
-                $news_item=array(
-
+                $user_item=array(
                     'club_name'=>$club_name,
                     'date'=>$date,
                     'news_title'=>$news_title,
                     'news_content'=>$news_content,
                     'news_pic'=>$news_pic
-                    
                 );
                 // Push to 'data'
-                // array_push($newss_arr['data'],$news_item);
+                // array_push($users_arr['data'],$user_item);
                 // Turn to Json
-                echo json_encode($news_item);
+                echo json_encode($user_item);
             }
         }else{
             echo json_encode(

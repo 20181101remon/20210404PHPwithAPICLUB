@@ -29,15 +29,32 @@
         ' WHERE '.$this->table1.'.`club_id`='.$this->table2.'.`club_id` 
         AND '.$this->table1.'.`news_id`='.$this->table3.'.`news_id`
         AND '.$this->table1.'.`flow_of_news`='.$this->table4.'.`flow_of_news`
+        AND '.$this->table2.'.club_name = ?
         GROUP BY '.$this->table1.'.flow_of_news
         ORDER BY '.$this->table1.'.date';
             // Prepare statement
             $stmt=$this->conn->prepare($query);
+            $stmt->bindParam(1,$this->id);
             // Execute query
             $stmt->execute();
             return $stmt;
         }
         // get Single Post 
+
+        public function readPLC(){
+            $query = 'SELECT * FROM '.$this->table1.','.$this->table2.','.$this->table3.','.$this->table4.  
+            ' WHERE '.$this->table1.'.`club_id`='.$this->table2.'.`club_id` 
+            AND '.$this->table1.'.`news_id`='.$this->table3.'.`news_id`
+            AND '.$this->table1.'.`flow_of_news`='.$this->table4.'.`flow_of_news`
+            AND '.$this->table1.'.PLC = 1
+            GROUP BY '.$this->table1.'.flow_of_news
+            ORDER BY '.$this->table1.'.date';
+                // Prepare statement
+                $stmt=$this->conn->prepare($query);
+                // Execute query
+                $stmt->execute();
+                return $stmt;
+        }
 
         public function read_single(){
 

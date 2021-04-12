@@ -5,42 +5,37 @@
         // accept Json which mime Tpye
         header('Content-Type:application/json');
         include_once '../../config/Database.php';
-        include_once '../../models/club_news.php';
+        include_once '../../models/activity_results.php';
         // Insrantiate DB & connect
         $database =new Database();
         $db=$database->connect();
-        //  Insrantiate blog news Object
-        $news=new club_news($db);
-        // Get ID
-        $news->id = isset($_GET['id']) ? $_GET['id'] : die();
-
-
-        // Blog news query
-        $result =$news->read();
+        //  Insrantiate blog user Object
+        $user=new activity_results($db);
+        // Blog user query
+        $result =$user->readPLC();
         // Get row Count
         $num=$result->rowCount();
         if($num>0){
-            $news_arr=array();
+            $user_arr=array();
             
             // pagniation easily
-            // $newss_arr['data']=array();
-
+            // $users_arr['data']=array();
             while($row=$result->fetch(PDO::FETCH_ASSOC)){
                 // let key be the variable,take the content from sql
                 extract($row);
-                $news_item=array(
-
-                    'club_name'=>$club_name,
-                    'date'=>$date,
-                    'news_title'=>$news_title,
-                    'news_content'=>$news_content,
-                    'news_pic'=>$news_pic
-                    
+                $user_item=array(
+                    'date' => $date,
+                    'club_name' => $club_name,
+                    'activity_name' => $activity_name,
+                    'result_activity_population' => $result_activity_population,
+                    'achievement' => $achievement,
+                    'improvement' => $improvement,
+                    'result_pic' => $result_pic
                 );
                 // Push to 'data'
-                // array_push($newss_arr['data'],$news_item);
+                // array_push($users_arr['data'],$user_item);
                 // Turn to Json
-                echo json_encode($news_item);
+                echo json_encode($user_item);
             }
         }else{
             echo json_encode(
